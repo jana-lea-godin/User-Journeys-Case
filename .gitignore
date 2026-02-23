@@ -1,0 +1,50 @@
+# =========================
+# DATA
+# =========================
+
+data/raw/*
+data/interim/*
+data/processed/*
+
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# =========================
+# RESULTS (optional)
+# =========================
+
+results/figures/*
+results/tables/*
+results/segments/*
+results/drift_reports/*
+
+!results/figures/.gitkeep
+!results/tables/.gitkeep
+!results/segments/.gitkeep
+!results/drift_reports/.gitkeep
+
+# =========================
+# PYTHON
+# =========================
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+.venv/
+env/
+
+# =========================
+# Jupyter (falls doch mal genutzt)
+# =========================
+
+.ipynb_checkpoints/
+
+# =========================
+# Mac
+# =========================
+
+.DS_Store
