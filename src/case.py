@@ -143,15 +143,24 @@ def run_pipeline() -> None:
         conv_art.table.head(50).to_csv(paths.results_tables / "segment_conversion_head.csv", index=False)
 
         print(f"✅ Conversion analysis saved: {conv_art.table_path}")
-        if conv_art.figure_path:
-            print(f"✅ Conversion figure saved: {conv_art.figure_path}")
-        else:
-            print("⚠️ matplotlib not available; skipped conversion figure")
-    else:
-        print("⚠️ sessions.parquet or user_segments.csv not found; skipping conversion analysis")
-        
 
-    print(f"✅ Segmentation complete (chosen_k={seg_res.chosen_k})")
+        if conv_art.conversion_fig_path:
+            print(f"✅ Conversion figure saved: {conv_art.conversion_fig_path}")
+        else:
+            print("⚠️ matplotlib not available; skipped conversion efficiency figure")
+
+        if conv_art.quadrant_fig_path:
+            print(f"✅ Quadrant figure saved: {conv_art.quadrant_fig_path}")
+        else:
+            print("⚠️ matplotlib not available; skipped quadrant figure")
+
+        if conv_art.leakage_size_fig_path:
+            print(f"✅ Leakage vs size figure saved: {conv_art.leakage_size_fig_path}")
+        else:
+            print("⚠️ matplotlib not available; skipped leakage vs size figure")
+                
+
+        print(f"✅ Segmentation complete (chosen_k={seg_res.chosen_k})")
 
 
     print("✅ Pipeline run complete")

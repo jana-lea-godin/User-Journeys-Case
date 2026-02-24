@@ -38,9 +38,12 @@ class DataLoader:
             raise FileNotFoundError(f"events file not found: {path}")
 
         df = pd.read_csv(path)
+
         self._validate_columns(df, REQUIRED_EVENTS_COLS, name="events")
 
         df = df.copy()
+
+        # Type casting
         df["user_id"] = pd.to_numeric(df["user_id"], errors="raise").astype("int64")
         df["ga_session_id"] = pd.to_numeric(df["ga_session_id"], errors="raise").astype("int64")
         df["item_id"] = pd.to_numeric(df["item_id"], errors="raise").astype("int64")
@@ -49,10 +52,26 @@ class DataLoader:
             df[col] = df[col].astype("string").str.strip()
 
         df["date"] = pd.to_datetime(df["date"], errors="raise", utc=False)
-        df = df.dropna(subset=["user_id", "ga_session_id", "type", "date", "item_id"])
-        df = df.sort_values(["user_id", "ga_session_id", "date", "item_id"]).reset_index(drop=True)
-        return df
 
+        # Fill country nulls (harmless & explicit)
+        df["country"] = df["country"].fillna("Unknown")
+
+        # Drop rows with critical nulls
+        df = df.dropna(subset=["user_id", "ga_session_id", "type", "date", "item_id"])
+
+        # Deterministic sort
+        df = df.sort_values(["user_id", "ga_session_id", "date", "item_id"]).reset_index(drop=True)
+
+        # 🔥 Deduplicate on logical event key
+        before = len(df)
+        df = df.drop_duplicates(subset=["user_id", "ga_session_id", "item_id", "date", "type"])
+        after = len(df)
+
+        print(f"Deduplicated events: removed {before - after} rows")
+
+        return df
+    
+    
     def load_items(self, filename: str = "items.csv") -> pd.DataFrame:
         path = self.raw_dir / filename
         if not path.exists():

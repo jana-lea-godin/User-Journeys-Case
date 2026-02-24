@@ -11,15 +11,16 @@ data/processed/*
 !data/processed/.gitkeep
 
 # =========================
-# RESULTS (optional)
+# RESULTS
 # =========================
 
-results/figures/*
+# Keep figures for portfolio
+# Ignore large derived tables if desired
 results/tables/*
 results/segments/*
 results/drift_reports/*
 
-!results/figures/.gitkeep
+
 !results/tables/.gitkeep
 !results/segments/.gitkeep
 !results/drift_reports/.gitkeep
@@ -33,15 +34,10 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Virtual Environment
+
 .venv/
 env/
 
-# =========================
-# Jupyter (falls doch mal genutzt)
-# =========================
-
-.ipynb_checkpoints/
 
 # =========================
 # Mac

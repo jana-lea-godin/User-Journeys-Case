@@ -23,3 +23,7 @@ Different segments require different actions:
 - High leakage → checkout UX + discount experiments
 - High efficiency → upsell/cross-sell + retention
 - “Purchase without ATC” → instrumentation audit + improved funnel tracking
+
+Additional visuals:
+- `results/figures/segment_atc_vs_purchase_quadrant.png` (quadrant: ATC vs Purchase)
+- `results/figures/segment_leakage_vs_size.png` (leakage vs segment size)
